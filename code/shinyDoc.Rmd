@@ -1,0 +1,61 @@
+---
+title: "rainbbow"
+author: "ciro barone"
+date: "Thursday, July 10, 2014"
+output: html_document
+runtime: shiny
+
+tutorial: http://rmarkdown.rstudio.com/authoring_shiny.html?version=0.98.939&mode=desktop
+---
+
+
+```{r, echo=FALSE}
+
+shinyUI(pageWithSidebar( 
+  headerPanel("test"),
+
+  sidebarPanel(h4("Controls"),
+               dateRangeInput("Range Date", "Range Date:",
+               start = "201309",
+               end   = "201312"),
+               
+               selectInput("var1", "Segmenta per:",
+            c("Festivo" = "Festivo",
+              "Lavorativo" = "Lavorativo")),
+            
+            checkboxGroupInput("var2", "Seleziona categoria:",
+                   c("Farmacie" = "farmacie",
+                     "Ristoranti" = "ristoranti",
+                     "Gommisti" = "gommisti"))         
+               
+               )
+  ))
+
+mainPanel()
+
+
+
+
+```
+
+## Embedded Application
+
+It's also possible to embed an entire Shiny application within an R Markdown document using the `shinyAppDir` function. This example embeds a Shiny application located in another directory:
+
+```{r, echo=FALSE}
+shinyAppDir(
+  system.file("examples/06_tabsets", package="shiny"),
+  options=list(
+    width="100%", height=550
+  )
+)
+```
+
+Note the use of the `height` parameter to determine how much vertical space the embedded application should occupy.
+
+You can also use the `shinyApp` function to define an application inline rather then in an external directory.
+
+In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
+
+
+
